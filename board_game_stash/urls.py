@@ -17,8 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from board_game_list import views as board_game_list_views
+from user_library import views as user_library_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', board_game_list_views.index, name='index'),
+    path('list/', board_game_list_views.index, name='index'),
+    path('library/', user_library_views.index, name='library'),
 ]
