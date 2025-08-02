@@ -1,0 +1,52 @@
+[
+    {
+        "model": "board_game_list.boardgamelist",
+        "pk": null,
+        "fields": {
+            "title": "Azul: Summer Pavillion",
+            "slug": "azul-summer-pavillion",
+            "category": 1,
+            "description": "Players collect sets of similarly coloured tiles to place on their board, trying to create sets of tiles to score points."
+        }
+    },
+        {
+        "model": "board_game_list.boardgamelist",
+        "pk": null,
+        "fields": {
+            "title": "Bananagrams",
+            "slug": "bananagrams",
+            "category": 2,
+            "description": "Players try and connect individual letter tiles to try and form connected words in the quickest amount of time."
+        }
+    },
+            {
+        "model": "board_game_list.boardgamelist",
+        "pk": null,
+        "fields": {
+            "title": "Captain Sonar",
+            "slug": "captain-sonar",
+            "category": 1,
+            "description": "Two teams take control of submarines, using map controls and weapon systems to root out and destroy the opposing sub."           
+        }
+    },
+            {
+        "model": "board_game_list.boardgamelist",
+        "pk": null,
+        "fields": {
+            "title": "Diamant",
+            "slug": "diamant",
+            "category": 3,
+            "description": "Players assume the role of adventurers looking for treasure in a diamond mine, pushing ever deeper into the cave and weighing up the risks vs the rewards."            
+        }
+    },
+            {
+        "model": "board_game_list.boardgamelist",
+        "pk": null,
+        "fields": {
+            "title": "CDSK",
+            "slug": "cdsk",
+            "category": 4,
+            "description": "Players go around a board answering trivia questions, betting their level of knowledge on a chosen subject to try and move around quicker than opponents to get to the finish line." 
+            }
+    }
+]

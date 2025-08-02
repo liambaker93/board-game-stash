@@ -1,0 +1,30 @@
+[
+    {
+        "model": "board_game_list.boardgamecategory",
+        "pk": "1",
+        "fields": {
+            "name": "Strategy"
+        }
+    },
+        {
+        "model": "board_game_list.boardgamecategory",
+        "pk": "2",
+        "fields": {
+            "name": "Word game"
+        }
+    },
+        {
+        "model": "board_game_list.boardgamecategory",
+        "pk": "3",
+        "fields": {
+            "name": "Card game"
+        }
+    },
+        {
+        "model": "board_game_list.boardgamecategory",
+        "pk": "4",
+        "fields": {
+            "name": "Trivia"
+        }
+    }
+]
