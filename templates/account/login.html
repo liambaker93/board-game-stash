@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Log In" %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h3>{% trans "Log In" %}</h3>
+      <p>{% blocktrans %}Welcome back to Board Game Stash! To begin adding and editing your library, or join in with the conversation, please log in. If you
+        haven't created an account yet, then please <a class="link" href="{{ signup_url }}">sign up!</a>{% endblocktrans %}
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+        {% endif %}
+        <button class="btn btn-signup right" type="submit">{% trans "Log In" %}</button>
+      </form>
+  </div>
+</div>
+{% endblock %}

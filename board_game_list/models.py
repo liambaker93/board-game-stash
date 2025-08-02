@@ -12,7 +12,7 @@ class BoardGameList(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     category = models.ForeignKey(BoardGameCategory, on_delete=models.CASCADE)
     description = models.CharField()
-    image = models.ImageField()
+    image = models.ImageField(default='none')
 
 
 

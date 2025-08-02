@@ -19,6 +19,7 @@ from django.urls import path, include
 from board_game_list import views as board_game_list_views
 
 urlpatterns = [
+    path('accounts/', include("allauth.urls")),
     path('admin/', admin.site.urls),
     path('', include("board_game_list.urls"), name="list"),
     path('summernote/', include('django_summernote.urls')),
