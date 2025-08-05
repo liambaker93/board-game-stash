@@ -16,7 +16,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from board_game_list import views as board_game_list_views
 
 urlpatterns = [
     path('accounts/', include("allauth.urls")),

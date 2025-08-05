@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
 
+
 <!--User authentication section. If user is authenticated then their library will appear. If user is not authenticated then a page showing them the default library will appear, without any edit or comment permissions.-->
 
 <!--Section for if the user is not authenticated-->
@@ -9,24 +10,51 @@
 
 <section class="container">
     <div class="row">
-        <div class="col game-text">
-            <p>Game One</p>
-            <p>Game Two</p>
-            <p>Game Three</p>
-        </div>
+        {% if user.is_authenticated %}
+        {% for game in boardgamelists %}
         <div class="col">
-            <p>Image placeholder</p>
+            <div class="card" style="width: 18rem;">
+            <img src="{{ game.image }}" class="card-img-top" alt="{{ game.title }}">
+            <div class="card-body ">
+
+            <h5 class="card-title">{{ game.title }}</h5>
+            <p class="card-text">{{ game.description }}</p>
+            <p class="card-text">{{ game.rating }}</p>
+            <!--<a href="#" class="btn btn-primary">Go somewhere</a> -->
+            </div>
+                    </div>
         </div>
+            {% endfor %}
         <div class="col">
-            <p>Game Title</p>
-            <p>Game Category</p>
-            <p>Game Description</p>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGameModal">Add a new game</button>
         </div>
+            {% endif %}
+
     </div>
     <div>
 
     </div>
     
 </section>
+<div class="modal" tabindex="-1" id="addGameModal" aria-labelledby="addGameModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addGameModalLabel">Add a new game</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addGameForm" method="POST" action="{% url 'update_library' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Update Library</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
