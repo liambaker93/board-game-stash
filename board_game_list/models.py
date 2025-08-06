@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -18,9 +20,14 @@ class BoardGameList(models.Model):
     description = models.CharField()
     image = models.ImageField(default='none')
     rating = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(BoardGameList, self).save(*args, **kwargs)
     
 
 

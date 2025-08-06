@@ -25,14 +25,15 @@
                     </div>
         </div>
             {% endfor %}
-        <div class="col">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGameModal">Add a new game</button>
-        </div>
+
             {% endif %}
 
     </div>
     <div>
 
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGameModal">Add a new game</button>
     </div>
     
 </section>
@@ -47,11 +48,12 @@
         <form id="addGameForm" method="POST" action="{% url 'update_library' %}">
             {% csrf_token %}
             {{ form.as_p }}
-        </form>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Update Library</button>
+        </form>
       </div>
     </div>
   </div>

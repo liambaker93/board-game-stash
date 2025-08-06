@@ -11,19 +11,20 @@ class PostList(generic.ListView):
     template_name = "list/library.html"
     context_object_name = 'boardgamelists'
 
-
 def update_library(request):
     print("this is the update_library")
     if request.method == 'POST':
         form = LibraryUpdateForm(request.POST)
         if form.is_valid():
             new_game = form.save(commit=False)
+            new_game.author = request.user
             new_game.save()
             return redirect('update_library')
     else:
         form = LibraryUpdateForm()
+        print(form.errors)
 
-    boardgamelists = BoardGameList.objects.all()
+    boardgamelists = BoardGameList.objects.filter(author=request.user)
     context = {
         'boardgamelists': boardgamelists,
         'form': form,
