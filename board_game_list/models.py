@@ -18,7 +18,7 @@ class BoardGameList(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     category = models.ForeignKey(BoardGameCategory, on_delete=models.CASCADE)
-    description = models.CharField()
+    description = models.TextField()
     image = CloudinaryField('image')
     rating = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
     author = models.ForeignKey(User, on_delete=models.CASCADE)
