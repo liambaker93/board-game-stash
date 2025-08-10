@@ -11,21 +11,23 @@
 <section class="container">
     <div class="row">
         {% if user.is_authenticated %}
+          <div class="col">
+            <button type="button" class="btn btn-primary modal-open" data-bs-toggle="modal" data-bs-target="#addGameModal">Add a new game</button>
+          </div>
         {% for game in boardgamelists %}
         <div class="col">
             <div class="card" style="width: 18rem;">
             <div class="card-body ">
 
-            <h5 class="card-title">{{ game.title }}</h5>
+            <h5 class="card-title"><a href="{% url 'full_detail' game.slug %}">{{ game.title }}</a></h5>
             <p class="card-text">Rating: {{ game.rating }}</p>
             <p class="card-text">Players: {{ game.minplayers }} - {{ game.maxplayers }}</p>
-            <a href="{% url 'edit_library' game.id %}" class="btn btn-edit">Edit</a>
-            <a href="{% url 'delete_library' game.id %}" class="btn btn-delete">Delete</a>
+            <a href="{% url 'edit_library' game.id %}" class="btn btn-success">Edit</a>
+            <a href="{% url 'delete_library' game.id %}" class="btn btn-danger">Delete</a>
             </div>
                     </div>
         </div>
             {% endfor %}
-
             {% endif %}
 
     </div>

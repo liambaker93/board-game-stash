@@ -1,13 +1,49 @@
 {% extends 'base.html' %} {% block content %}
 
-<section>
-        <form id="addGameForm" method="POST" action="{% url 'edit_library' game.id %}">
+
+
+<!--User authentication section. If user is authenticated then their library will appear. If user is not authenticated then a page showing them the default library will appear, without any edit or comment permissions.-->
+
+<!--Section for if the user is not authenticated-->
+
+<!--Section for is the user is authenticated-->
+
+<section class="container">
+    <div class="row">
+        <div class="col">
+            <h1>{{ game.title }}</h1>
+        </div>
+        <div class="col">
+            <img class="detail-image" src="{{ game.image.url }}" alt="{{ game.title }}">
+        </div>
+    </div>
+    <p>Category: {{ game.category }}</p>
+    <p>Description: {{ game.description | safe }}</p>
+    <p>Players: {{ game.minplayers }} - {{ game.maxplayers }}</p>
+    <p>Rating: {{ game.rating }}</p>
+    <a href="{% url 'edit_library' game.id %}" class="btn btn-success">Edit</a>
+    <a href="{% url 'delete_library' game.id %}" class="btn btn-danger">Delete</a>
+</section>
+<div class="modal" tabindex="-1" id="addGameModal" aria-labelledby="addGameModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addGameModalLabel">Add a new game</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addGameForm" method="POST" action="{% url 'update_library' %}">
             {% csrf_token %}
             {{ form.as_p }}
-        <button class="btn btn-submit">Submit Change</button>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Update Library</button>
         </form>
-    
-</section>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-{% endblock %}
+    {% endblock %}

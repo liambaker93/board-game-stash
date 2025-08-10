@@ -12,6 +12,11 @@ class PostList(generic.ListView):
     context_object_name = 'boardgamelists'
 
 
+def game_detail(request, slug):
+    game = get_object_or_404(BoardGameList, slug=slug)
+    return render(request, 'list/full_detail.html', {'game': game})
+
+
 def update_library(request):
     print("this is the update_library")
     if request.method == 'POST':

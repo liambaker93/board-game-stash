@@ -5,3 +5,8 @@
 .user-status {
     margin-left: auto;
 }
+
+.detail-image {
+    height: 200px;
+    width: auto;
+}

@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -18,11 +19,11 @@ class BoardGameList(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
     category = models.ForeignKey(BoardGameCategory, on_delete=models.CASCADE)
     description = models.CharField()
-    image = models.ImageField(default='none')
+    image = CloudinaryField('image')
     rating = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    minplayers = models.IntegerField(default=1, validators=[MinValueValidator(1)])
-    maxplayers = models.IntegerField(default=1, validators=[MinValueValidator(1)])
+    minplayers = models.IntegerField(default=1, validators=[MinValueValidator(1)], verbose_name="Mininmum Players:")
+    maxplayers = models.IntegerField(default=1, validators=[MinValueValidator(1)], verbose_name="Maximum Players:")
 
     def __str__(self):
         return self.title
