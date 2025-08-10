@@ -5,4 +5,6 @@ from . import views
 urlpatterns = [
     # path('', views.PostList.as_view(), name='list'),
     path('', views.update_library, name='update_library'),
+    path('edit/<int:game_id>', views.library_edit, name='edit_library'),
+    path('delete/<int:game_id>', views.library_delete, name='delete_library'),
 ]

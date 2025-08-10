@@ -21,6 +21,8 @@ class BoardGameList(models.Model):
     image = models.ImageField(default='none')
     rating = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    minplayers = models.IntegerField(default=1, validators=[MinValueValidator(1)])
+    maxplayers = models.IntegerField(default=1, validators=[MinValueValidator(1)])
 
     def __str__(self):
         return self.title

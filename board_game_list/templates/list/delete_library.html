@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block content %}
+
+<section>
+    <h1>Confirm Deletion</h1>
+    <p>Are you sure you want to delete {{ game.title }}?</p>
+        <form method="POST" action="{% url 'delete_library' game.id %}">
+            {% csrf_token %}
+        <button class="btn btn-submit" type="submit">Delete Game</button>
+        <a href="{% url 'update_library' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    
+</section>
+
+
+{% endblock %}

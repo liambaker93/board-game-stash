@@ -14,13 +14,13 @@
         {% for game in boardgamelists %}
         <div class="col">
             <div class="card" style="width: 18rem;">
-            <img src="{{ game.image }}" class="card-img-top" alt="{{ game.title }}">
             <div class="card-body ">
 
             <h5 class="card-title">{{ game.title }}</h5>
-            <p class="card-text">{{ game.description }}</p>
-            <p class="card-text">{{ game.rating }}</p>
-            <!--<a href="#" class="btn btn-primary">Go somewhere</a> -->
+            <p class="card-text">Rating: {{ game.rating }}</p>
+            <p class="card-text">Players: {{ game.minplayers }} - {{ game.maxplayers }}</p>
+            <a href="{% url 'edit_library' game.id %}" class="btn btn-edit">Edit</a>
+            <a href="{% url 'delete_library' game.id %}" class="btn btn-delete">Delete</a>
             </div>
                     </div>
         </div>
@@ -33,7 +33,7 @@
 
     </div>
     <div>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGameModal">Add a new game</button>
+        
     </div>
     
 </section>

@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from .models import BoardGameList
-from .forms import LibraryUpdateForm
+from .forms import LibraryUpdateForm, LibraryEditForm
 # Create your views here.
 
 
@@ -10,6 +10,7 @@ class PostList(generic.ListView):
     queryset = BoardGameList.objects.all()
     template_name = "list/library.html"
     context_object_name = 'boardgamelists'
+
 
 def update_library(request):
     print("this is the update_library")
@@ -32,3 +33,40 @@ def update_library(request):
     print(context)
     return render(request, 'list/library.html', context)
 
+
+def library_edit(request, game_id):
+    """
+    This provides a form for the user to edit a post of a game they've uploaded. 
+    LibraryEditForm provides fewer options to edit than adding a new post, for example LibraryEdit won't allow the user to change the name of the game as that 
+    would be handled by adding a new game to the library, however they can edit the number of players if they realise they inputted the wrong number.
+    """
+    game = get_object_or_404(BoardGameList, pk=game_id)
+
+
+    if request.method == 'POST' and game.author == request.user:
+        form = LibraryEditForm(request.POST, instance=game)
+        if form.is_valid():
+            print("Form is valid, attempting to save...")
+            form.save()
+            print("Database update successful!")
+            return redirect('update_library')
+    else:
+        form = LibraryEditForm(instance=game)
+
+    context = {
+        'form': form,
+        'game': game,
+    }
+
+    return render(request, 'list/edit_library.html', context)
+
+
+def library_delete(request, game_id):
+
+    game = get_object_or_404(BoardGameList, pk=game_id)
+
+    if request.method == 'POST' and game.author == request.user:
+        game.delete()
+        return redirect('update_library')
+
+    return render(request, 'list/delete_library.html', {'game': game})

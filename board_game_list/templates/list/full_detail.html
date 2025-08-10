@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block content %}
+
+<section>
+        <form id="addGameForm" method="POST" action="{% url 'edit_library' game.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <button class="btn btn-submit">Submit Change</button>
+        </form>
+    
+</section>
+
+
+{% endblock %}
