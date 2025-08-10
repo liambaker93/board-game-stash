@@ -1,1 +1,1 @@
-web: gunicorn board_game_list.wsgi
+web: gunicorn board_game_stash.wsgi
