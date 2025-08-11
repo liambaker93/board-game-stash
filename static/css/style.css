@@ -14,3 +14,7 @@
 .form-display {
     display: none;
 }
+
+.home-navigation {
+    background-color: greenyellow !important;
+}

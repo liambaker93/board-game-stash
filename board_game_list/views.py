@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
+from django.contrib import messages
 from .models import BoardGameList
 from .forms import LibraryUpdateForm, LibraryEditForm
 # Create your views here.
@@ -34,8 +35,6 @@ def add_game_to_global_library(request, game_id):
 
 
 def update_library(request):
-    print("this is the update_library")
-    form = LibraryUpdateForm()
 
     game_id_exists = request.GET.get('prepopulate_game')
 
@@ -49,19 +48,23 @@ def update_library(request):
     if request.method == 'POST':
         form = LibraryUpdateForm(request.POST)
         if form.is_valid():
+            messages.success(request, "Game successfully added to library!")
             new_game = form.save(commit=False)
             new_game.author = request.user
             new_game.save()
+            print("Adding game to library...")
             return redirect('update_library')
+        else:
+            print("Form is NOT valid. Errors:")
+            print(form.errors)
+            print("Form error validation not complete")
     else:
         form = LibraryUpdateForm()
-        print(form.errors)
+        messages.error(request, "Error updating form, please try again.")
 
-    all_games = BoardGameList.objects.all()
     boardgamelists = BoardGameList.objects.filter(author=request.user)
     context = {
         'boardgamelists': boardgamelists,
-        'all_games': all_games,
         'form': form,
     }
     print(context)
