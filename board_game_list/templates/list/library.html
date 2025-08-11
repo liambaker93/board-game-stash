@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-
+{% load static %}
 
 
 <!--User authentication section. If user is authenticated then their library will appear. If user is not authenticated then a page showing them the default library will appear, without any edit or comment permissions.-->
@@ -47,10 +47,24 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div id="gamePrepopulate">
+      <h2>Is it one of these?</h2>
+          <ul>
+          {% for game in all_games %}
+            <li>
+              <a href="{% url 'update_library' %}?game_prepopulate=={{ game.id }}">
+              {{ game.title }}
+              </a>
+            </li>
+          {% endfor %}
+          </ul>
+          </div>
+       <button id="showGameForm" type="button" class="btn btn-secondary">Need to add a new game?</button>
+        <div id="addGameFormContainer" class="form-display">
         <form id="addGameForm" method="POST" action="{% url 'update_library' %}">
             {% csrf_token %}
             {{ form.as_p }}
-        
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -61,4 +75,7 @@
   </div>
 </div>
 
+{% endblock %}
+{% block extras %}
+<script src="{% static 'js/game_form.js' %}"></script>
 {% endblock %}

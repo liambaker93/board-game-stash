@@ -21,9 +21,13 @@ class BoardGameList(models.Model):
     description = models.TextField()
     image = CloudinaryField('image')
     rating = models.IntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(5)])
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_games")
     minplayers = models.IntegerField(default=1, validators=[MinValueValidator(1)], verbose_name="Mininmum Players:")
     maxplayers = models.IntegerField(default=1, validators=[MinValueValidator(1)], verbose_name="Maximum Players:")
+    added_by = models.ManyToManyField(User, related_name="library_games", blank=True)
+
+    class Meta:
+        ordering = ['title']
 
     def __str__(self):
         return self.title

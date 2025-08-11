@@ -10,3 +10,7 @@
     height: 200px;
     width: auto;
 }
+
+.form-display {
+    display: none;
+}

@@ -11,14 +11,41 @@ class PostList(generic.ListView):
     template_name = "list/library.html"
     context_object_name = 'boardgamelists'
 
+def view_library(request):
+    user_library_games = request.user.library_games.all()
+    context = {
+        'user_library_games': user_library_games
+    }
+    return render(request, 'list/library.html', context)
+
 
 def game_detail(request, slug):
     game = get_object_or_404(BoardGameList, slug=slug)
     return render(request, 'list/full_detail.html', {'game': game})
 
 
+def add_game_to_global_library(request, game_id):
+    game = get_object_or_404(BoardGameList, game_id)
+    if request.method == 'POST':
+        game.added_by.add(request.user)
+        return redirect('list')
+    
+    return redirect('list')
+
+
 def update_library(request):
     print("this is the update_library")
+    form = LibraryUpdateForm()
+
+    game_id_exists = request.GET.get('prepopulate_game')
+
+    if game_id_exists:
+        try:
+            game_prepopulate = BoardGameList.objects.get(pk=game_id_exists)
+            form = LibraryUpdateForm(instance=game_prepopulate)
+        except BoardGameList.DoesNotExist:
+            pass
+
     if request.method == 'POST':
         form = LibraryUpdateForm(request.POST)
         if form.is_valid():
@@ -30,9 +57,11 @@ def update_library(request):
         form = LibraryUpdateForm()
         print(form.errors)
 
+    all_games = BoardGameList.objects.all()
     boardgamelists = BoardGameList.objects.filter(author=request.user)
     context = {
         'boardgamelists': boardgamelists,
+        'all_games': all_games,
         'form': form,
     }
     print(context)
