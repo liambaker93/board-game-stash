@@ -5,12 +5,10 @@ from .models import BoardGameList
 from .forms import LibraryUpdateForm, LibraryEditForm
 # Create your views here.
 
+class HomePage(generic.TemplateView):
+    template_name = "list/index.html"
 
-class PostList(generic.ListView):
-    print("these are the library games")
-    queryset = BoardGameList.objects.all()
-    template_name = "list/library.html"
-    context_object_name = 'boardgamelists'
+
 
 def view_library(request):
     user_library_games = request.user.library_games.all()
@@ -61,6 +59,7 @@ def update_library(request):
     else:
         form = LibraryUpdateForm()
         messages.error(request, "Error updating form, please try again.")
+
 
     boardgamelists = BoardGameList.objects.filter(author=request.user)
     context = {
