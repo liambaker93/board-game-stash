@@ -16,3 +16,17 @@ class LibraryEditForm(forms.ModelForm):
     class Meta:
         model = BoardGameList
         fields = ('category', 'description', 'rating', 'image', 'minplayers', 'maxplayers')
+
+
+class LibraryUpdateFormTest(forms.ModelForm):
+
+    class Meta:
+        model = BoardGameList
+        fields = ('title', 'description', 'rating', 'minplayers', 'maxplayers')
+
+
+class LibraryEditFormTest(forms.ModelForm):
+
+    class Meta:
+        model = BoardGameList
+        fields = ('description', 'rating', 'minplayers', 'maxplayers')

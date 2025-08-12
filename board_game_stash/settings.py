@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
+import sys
 import dj_database_url
 from pathlib import Path
 
@@ -105,6 +106,9 @@ DATABASES = {
     'default':
     dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+
+if 'test' in sys.argv:
+    DATABASES['default']['engine'] = 'django.db.backends.sqlite3'
 
 
 # Password validation
