@@ -5,8 +5,10 @@ from .models import BoardGameList
 from .forms import LibraryUpdateForm, LibraryEditForm
 # Create your views here.
 
+
 class HomePage(generic.TemplateView):
     template_name = "list/index.html"
+
 
 
 
@@ -50,19 +52,17 @@ def update_library(request):
             new_game = form.save(commit=False)
             new_game.author = request.user
             new_game.save()
-            print("Adding game to library...")
             return redirect('update_library')
         else:
-            print("Form is NOT valid. Errors:")
-            print(form.errors)
-            print("Form error validation not complete")
+            return redirect('update_library')
     else:
         form = LibraryUpdateForm()
         messages.error(request, "Error updating form, please try again.")
 
-
+    allgamelist = BoardGameList.objects.all()
     boardgamelists = BoardGameList.objects.filter(author=request.user)
     context = {
+        'allgames': allgamelist,
         'boardgamelists': boardgamelists,
         'form': form,
     }
