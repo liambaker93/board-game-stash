@@ -7,17 +7,27 @@ from .forms import LibraryUpdateForm, LibraryEditForm
 
 
 class HomePage(generic.TemplateView):
+    """
+    This view just displays the index page as a homepage
+    """
     template_name = "list/index.html"
 
 
 
 
 def game_detail(request, slug):
+    """
+    This view will load up the full detail HTML page which displays more info to the user about a game than what displays on the main library page
+    """
     game = get_object_or_404(BoardGameList, slug=slug)
     return render(request, 'list/full_detail.html', {'game': game})
 
 
 def update_library(request):
+    """
+    This handles adding new games to the user's individual library.
+    The first section handles displaying and saving the form to the user and checking for validity.
+    """
 
     if request.method == 'POST':
         form = LibraryUpdateForm(request.POST)
@@ -32,6 +42,9 @@ def update_library(request):
     else:
         form = LibraryUpdateForm()
         messages.error(request, "Error updating form, please try again.")
+    """
+    The next section returns the list of games added by the user to the user's library page so that they can see all the titles that have been added.
+    """
 
     boardgamelists = BoardGameList.objects.filter(author=request.user)
     context = {
@@ -68,6 +81,9 @@ def library_edit(request, game_id):
 
 
 def library_delete(request, game_id):
+    """
+    This view handles deleting posts from the user's library
+    """
 
     game = get_object_or_404(BoardGameList, pk=game_id)
 
