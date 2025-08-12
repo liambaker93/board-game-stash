@@ -1,0 +1,12 @@
+.detail-image {
+    height: 200px;
+    width: auto;
+}
+
+.form-display {
+    display: none;
+}
+
+.home-navigation {
+    background-color: greenyellow !important;
+}
